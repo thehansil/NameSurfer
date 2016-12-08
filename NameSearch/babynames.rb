@@ -20,4 +20,4 @@ class NamesTable
 
 end
 
-DataMapper.finalize()
+DataMapper.finalize

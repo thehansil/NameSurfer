@@ -1,8 +1,60 @@
-<div class="container">
-</div>
-<div class="container">
-  <div class="row">
-    <h2>About Stuff</h2>
-    Click on the links in the navbar to move around the site.
-  </div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(drawBasic);
+
+    function drawBasic() {
+
+        let data = new google.visualization.DataTable();
+        data.addColumn('number', 'X');
+        data.addColumn('number', 'Rank');
+        let options = {
+            hAxis: {
+                title: 'Year'
+            },
+            vAxis: {
+                title: 'Rank',
+                direction: -1
+
+            }
+        };
+
+        let chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+    }
+    function addData(namearray) {
+
+        data.addRows(namearray);
+        chart.draw(data, options)
+    }
+</script>
+
+<script>
+    $(document).ready(() => {
+        // set a listener on the textbox
+        $('#input').on("change", (evt) => {
+            let text = $('#input').val();
+            // the {text: text} sends a parameter named text with the
+            // value of what was typed in the textbox
+            $.get("/name", {text: text})
+                .done((data) => {
+                    $('#results').prepend('<li>' + data + '</li>');
+                    $(addData(data));
+                    $('#input').val('');   // reset the textbox
+                })
+                .fail((xhr) => {
+                    alert('Problem contacting server');
+                    console.log(xhr);
+                });
+        });
+    });
+</script>
+<div class = 'container'>
+  <input type="text" class="form-control" placeholder="Search" id = 'input'>
+  <div id="chart_div"></div>
+  <ul id="results">
+
+  </ul>
 </div>

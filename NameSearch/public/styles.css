@@ -1,0 +1,22 @@
+.jumbotron {
+    background: url("/usf-banner.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    font-size: 250%;
+}
+
+.jumbotron h1{
+    color: gold;
+    padding-left: 2em;
+}
+.jumbotron p{
+    color: white;
+    padding-left: 6em;
+}
+
+#input {
+    width: 15em;
+}
