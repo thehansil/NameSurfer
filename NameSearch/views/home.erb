@@ -4,18 +4,25 @@
     google.charts.load('current', {packages: ['corechart', 'line']});
     google.charts.setOnLoadCallback(drawBasic);
 
-    function drawBasic() {
+    function drawBasic(name = null, array = null) {
+        if (!name)
+            name = 'Name'
 
-        let data = new google.visualization.DataTable();
-        data.addColumn('number', 'X');
-        data.addColumn('number', 'Rank');
+        data = new google.visualization.DataTable();
+        data.addColumn('string', 'Year');
+        data.addColumn('number', name);
+        if (array)
+            data.addRows(array);
+
+
         let options = {
             hAxis: {
                 title: 'Year'
             },
             vAxis: {
                 title: 'Rank',
-                direction: -1
+                direction: -1,
+                ticks: [200, 400, 600, 800,1000]
 
             }
         };
@@ -23,11 +30,6 @@
         let chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
         chart.draw(data, options);
-    }
-    function addData(namearray) {
-
-        data.addRows(namearray);
-        chart.draw(data, options)
     }
 </script>
 
@@ -40,8 +42,9 @@
             // value of what was typed in the textbox
             $.get("/name", {text: text})
                 .done((data) => {
+                    $(console.log(data))
                     $('#results').prepend('<li>' + data + '</li>');
-                    $(addData(data));
+                    $(drawBasic(text,data));
                     $('#input').val('');   // reset the textbox
                 })
                 .fail((xhr) => {
@@ -51,8 +54,9 @@
         });
     });
 </script>
+
 <div class = 'container'>
-  <input type="text" class="form-control" placeholder="Search" id = 'input'>
+  <input type="text" class="form-control" placeholder="Search Name" id = 'input'>
   <div id="chart_div"></div>
   <ul id="results">
 
