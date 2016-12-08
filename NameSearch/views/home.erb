@@ -42,7 +42,9 @@
             // value of what was typed in the textbox
             $.get("/name", {text: text})
                 .done((data) => {
-                    $(console.log(data))
+                    if (data == null)
+                        $(alert('Name not found in database.'));
+                    $(console.log(data));
                     $('#results').prepend('<li>' + data + '</li>');
                     $(drawBasic(text,data));
                     $('#input').val('');   // reset the textbox
