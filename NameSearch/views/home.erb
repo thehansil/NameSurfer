@@ -6,6 +6,7 @@
     let thearray = [['1900'], ['1910'], ['1920'], ['1930'], ['1940'], ['1950'], ['1960'], ['1970'], ['1980'], ['1990'], ['2000']]
     let options = {
         animation: {
+            startup: true,
             duration: 1000,
             easing: 'out'
         },
@@ -22,7 +23,6 @@
         height: 400
     };
     function drawBasic(name = null, array = null) {
-
         if (!name) {
             data = new google.visualization.DataTable();
             chart = new google.visualization.LineChart(document.getElementById('chart_div'));
@@ -30,31 +30,9 @@
         }
 
         if (array) {
-            for (let i = 0; i < 11; ++i) {
-                thearray[i].push(array[i][1]);
-            }
             data.addColumn('number', name);
-            data.removeRows(0,data.getNumberOfRows())
-            data.addRows(thearray);
-            chart.draw(data, options);
-
-        } else {
-            data.addColumn('string', 'Year');
-        }
-    }
-
-    function hold() {
-        if (!name) {
-            data = new google.visualization.DataTable();
-            chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-        }
-
-        if (array) {
-            for (let i = 0; i < 11; ++i) {
-                thearray[i].push(array[i][1]);
-            }
-            data.addColumn('number', name);
+            console.log(data.getNumberOfColumns());
+            console.log(data.getNumberOfRows());
             for (let i=0; i < data.getNumberOfRows(); ++i) {
                 data.setValue(i, data.getNumberOfColumns()-1, array[i][1]);
             }
@@ -63,7 +41,11 @@
 
         } else {
             data.addColumn('string', 'Year');
+            data.addRows([['1900'], ['1910'], ['1920'], ['1930'], ['1940'],
+                          ['1950'], ['1960'], ['1970'], ['1980'], ['1990'], ['2000']
+            ]);
         }
+
     }
 
 </script>
@@ -97,7 +79,4 @@
 <div class = 'container'>
   <input type="text" class="form-control" placeholder="Search Name" id = 'input'>
   <div id="chart_div"></div>
-  <ul id="results">
-
-  </ul>
 </div>
