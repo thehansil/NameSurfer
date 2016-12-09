@@ -60,3 +60,20 @@ def create_name_array(babyname = 'A')
   end
 
 end
+
+def add_to_array(name, array)
+  name = NamesTable.first(:name=>name)
+  array = array
+  array[0].push(name.year1900)
+  array[1].push(name.year1910)
+  array[2].push(name.year1920)
+  array[3].push(name.year1930)
+  array[4].push(name.year1940)
+  array[5].push(name.year1950)
+  array[6].push(name.year1960)
+  array[7].push(name.year1970)
+  array[8].push(name.year1980)
+  array[9].push(name.year1990)
+  array[10].push(name.year2000)
+  array
+end
