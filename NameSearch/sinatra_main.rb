@@ -15,9 +15,10 @@ end
 
 get '/name' do
   if params['text']
+    name = params['text'].gsub(/[^a-zA-Z]/,'')
     content_type :json
 
-    create_name_array(params['text']).to_json
+    create_name_array(name).to_json
   end
 end
 
